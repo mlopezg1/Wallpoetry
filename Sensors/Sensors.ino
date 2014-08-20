@@ -33,6 +33,7 @@ void setup() {
 
 void loop() {
 	chkZone();
+	delay(500);
 	sendCounter();
 }
 
@@ -75,6 +76,10 @@ void chkZone(){
 		else{
 			r_half = true;
 		}
+	}
+
+	if(counter < 0){
+		counter = 0;
 	}
 }
 
