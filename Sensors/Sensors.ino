@@ -28,6 +28,7 @@ Ultra rs_internal(rsi_trig,rsi_echo,w_distance);
 
 void setup() {
 	Wire.begin();
+	Serial.begin(115200);
 }
 
 void loop() {
@@ -89,6 +90,7 @@ void sendCounter(){
 		}
   		Wire.write(send_val);                
   		Wire.endTransmission();
+  		Serial.println("Number of persons = " + str(counter));
   		l_counter = counter;
 	}
 }

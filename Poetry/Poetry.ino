@@ -47,9 +47,10 @@ int counter = 0;					// People Counter
 
 void setup()
 {
-	Wire.begin(0x0A);
-	Wire.onReceive(receiveEvent);
-	//Serial.begin(115200);
+	Wire.begin(0x0A);				// Start of the I2C port
+	Wire.onReceive(receiveEvent);	// On even received over I2C
+	Serial.begin(115200);			// Serial port Using to debug
+	Serial.print("--- Serial Debug ---");
 }
 
 void loop()							// Main Loop	
@@ -75,6 +76,14 @@ int poetry(){
 		MP3player.playTrack(g_number);							// Play the select gretings message
 		state = 1;												// Change the state to 1
 		
+		// Serial Debug Lines
+		char out_buffer[128];
+		sprintf(out_buffer,"Gretings Message - State = %u Counter = %u TrackNumber = %u \n",state, counter, g_number );
+		Serial.println(out_buffer);
+		Serial.println("---- ---- ----");
+		// End of the Debug Lines
+
+
 		return 0;	
 	}
 
@@ -92,7 +101,14 @@ int poetry(){
 		t_last = t_number;										// Store the track numbe to last track number
 		MP3player.playTrack(t_number);							// Play the select track
 		state = 2;												// Change state to 2
-		
+
+		// Serial Debug Lines
+		char out_buffer[128];
+		sprintf(out_buffer,"Poetry - State = %u Counter = %u TrackNumber = %u \n",state, counter, t_number );
+		Serial.println(out_buffer);
+		Serial.println("---- ---- ----");
+		// End of the Debug Lines
+
 		return 0;
 	}
 
@@ -112,6 +128,13 @@ int poetry(){
 		MP3player.playTrack(a_number);							// Play the message
 		state = 3;												// Change to state 3
 		
+		// Serial Debug Lines
+		char out_buffer[128];
+		sprintf(out_buffer,"Ask to stay - State = %u Counter = %u TrackNumber = %u \n",state, counter, a_number );
+		Serial.println(out_buffer);
+		Serial.println("---- ---- ----");
+		// End of the Debug Lines
+
 		return 0; 
 	}
 
@@ -155,6 +178,14 @@ int poetry(){
 		c_last = c_number;
 		MP3player.playTrack(c_number);
 		state = 4;
+
+		// Serial Debug Lines
+		char out_buffer[128];
+		sprintf(out_buffer,"Complaints - State = %u Counter = %u TrackNumber = %u \n",state, counter, c_number );
+		Serial.println(out_buffer);
+		Serial.println("---- ---- ----");
+		// End of the Debug Lines
+
 		return 0;
 	}
 
@@ -166,6 +197,14 @@ int poetry(){
 		MP3player.playTrack(t_number);
 		MP3player.skipTo(t_pos);
 		state = 2;
+
+		// Serial Debug Lines
+		char out_buffer[128];
+		sprintf(out_buffer,"Return to Poetry - State = %u Counter = %u TrackNumber = %u \n",state, counter, t_number );
+		Serial.println(out_buffer);
+		Serial.println("---- ---- ----");
+		// End of the Debug Lines
+
 		return 0;
 	}
 
@@ -203,4 +242,15 @@ int poetry(){
 
 void receiveEvent(int rec){
 	counter = int(Wire.read());
+}
+
+void SerialDebug(){
+	if(Serial.available()){
+		String output="";
+		while(Serial.available()){
+	  		output.concat(char(Serial.read()));
+	  		delay(10);
+		}
+		counter = output.toInt();
+	}
 }
