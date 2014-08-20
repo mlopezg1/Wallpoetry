@@ -16,7 +16,7 @@ bool Ultra::check(){
 	digitalWrite(trigger,0);
   	duration = pulseIn(echo, HIGH);
   	distance = (duration/2) / 29.1;
-  	if(distance < 350){
+  	if(distance < max_dist){
   		return true;
   	}
   	return false;
