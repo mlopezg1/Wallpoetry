@@ -21,3 +21,14 @@ bool Ultra::check(){
   	}
   	return false;
 }
+
+long Ultra::distance(){
+		long duration, distance;
+		digitalWrite(trigger,1);
+		delayMicroseconds(10);
+		digitalWrite(trigger,0);
+  		duration = pulseIn(echo, HIGH);
+  		distance = (duration/2) / 29.1;
+  		return distance;
+	}
+}

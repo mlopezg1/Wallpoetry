@@ -90,7 +90,7 @@ void sendCounter(){
 		}
   		Wire.write(send_val);                
   		Wire.endTransmission();
-  		Serial.println("Number of persons = " + str(counter));
+  		Serial.println("Number of persons = " + char(counter));
   		l_counter = counter;
 	}
 }
