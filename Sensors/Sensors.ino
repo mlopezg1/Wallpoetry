@@ -37,14 +37,19 @@ void loop() {
 	sendCounter();
 }
 
-void chkZone(){
+int chkZone(){
 	if(ls_external.check()){
 		if(l_half){
 			l_half = false;
 			counter--;
+			if(counter < 0){
+				counter = 0;
+			}
+			return 0;
 		}
 		else{
 			l_half = true;
+			return 0;
 		}
 	}
 
@@ -52,9 +57,11 @@ void chkZone(){
 		if(l_half){
 			l_half = false;
 			counter++;
+			return 0;
 		}
 		else{
 			l_half = true;
+			return 0;
 		}
 	}
 
@@ -62,9 +69,14 @@ void chkZone(){
 		if(r_half){
 			r_half = false;
 			counter--;
+			if(counter < 0){
+				counter = 0;
+			}
+			return 0;
 		}
 		else{
 			r_half = true;
+			return 0;
 		}
 	}
 
@@ -72,14 +84,12 @@ void chkZone(){
 		if(r_half){
 			r_half = false;
 			counter++;
+			return 0;
 		}
 		else{
 			r_half = true;
+			return 0;
 		}
-	}
-
-	if(counter < 0){
-		counter = 0;
 	}
 }
 

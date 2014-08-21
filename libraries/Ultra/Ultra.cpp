@@ -30,5 +30,4 @@ long Ultra::distance(){
   		duration = pulseIn(echo, HIGH);
   		distance = (duration/2) / 29.1;
   		return distance;
-	}
-}
+  	}
