@@ -8,6 +8,8 @@
 SdFat sd;							// SD Card Object		
 SFEMP3Shield MP3player;				// MP3 Shield Object	
 
+const int chipSelect = 9;
+
 #define g_min 0 					// Min number for Greating message
 #define g_max 3						// Max number for Greating Message 
 
@@ -47,9 +49,11 @@ int counter = 0;					// People Counter
 
 void setup()
 {
-	Wire.begin(0x0A);				// Start of the I2C port
-	Wire.onReceive(receiveEvent);	// On even received over I2C
-	Serial.begin(115200);			// Serial port Using to debug
+	Wire.begin(0x0A);							// Start of the I2C port
+	Wire.onReceive(receiveEvent);				// On even received over I2C
+	Serial.begin(115200);						// Serial port Using to debug
+	sd.begin(chipSelect,SPI_HALF_SPEED);		// Begin the SD card
+	MP3player.begin();							// Begin the MP3 circuit
 	Serial.print("--- Serial Debug ---");
 }
 
@@ -57,6 +61,7 @@ void loop()							// Main Loop
 {
 	poetry();						// Main Funtion
 	delay(100);
+	SerialDebug();
 }
 
 /*Main funtion*/
@@ -117,6 +122,7 @@ int poetry(){
 	if((state == 2 ) && (counter == 0)){
 
 		t_pos = MP3player.currentPosition();					// Store the position of the playing track
+		MP3player.stopTrack();
 
 		a_number = int(random(a_min,a_max+0.99));				// Pick a random ask to stay message
 
