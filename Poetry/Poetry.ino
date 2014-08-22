@@ -54,7 +54,7 @@ void setup()
 	Serial.begin(115200);						// Serial port Using to debug
 	sd.begin(chipSelect,SPI_HALF_SPEED);		// Begin the SD card
 	MP3player.begin();							// Begin the MP3 circuit
-	Serial.print("--- Serial Debug ---");
+	Serial.println("--- Serial Debug ---");
 }
 
 void loop()							// Main Loop	
@@ -147,21 +147,21 @@ int poetry(){
 	// Timer Counter
 
 	if(state == 3){
-		if(change){
-			
+		if(change){	
+			Serial.println("State = 3 - Complaints Timer Start");
 			change = false;
 			timer_activated = true;
 			retunr_timer = millis();			
 		}
 		if(timer_activated){
 			if(millis() - retunr_timer > time_to_retunr){
-				
 				timer_activated = false;
-				timeout = true;	
+				timeout = true;
+				Serial.println("State = 3 - Complaints Timer Done!");	
 			}
 		}
 		if(counter >= 1){
-
+			Serial.println("State = 3 - The peole is back!");
 			change = true;
 			timer_activated = false;
 			timeout = false;
@@ -216,6 +216,7 @@ int poetry(){
 
 	if(!MP3player.isPlaying())
 	{
+		Serial.println("Change!");
 		switch (state) {
 		    case 1:										// If the Gretings message is finished
 		    	change = true;							// If the Gretings message is finished and still people in the zone 
