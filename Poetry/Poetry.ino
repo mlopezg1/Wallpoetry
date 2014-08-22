@@ -82,11 +82,7 @@ int poetry(){
 		state = 1;												// Change the state to 1
 		
 		// Serial Debug Lines
-		// char out_buffer[128];
-		// sprintf(out_buffer,"Gretings Message - State = %u Counter = %u TrackNumber = %u \n",state, counter, g_number );
-		// Serial.println(out_buffer);
-		// Serial.println("---- ---- ----");
-		// End of the Debug Lines
+		DebugOutput(state,counter,g_number);
 
 
 		return 0;	
@@ -108,11 +104,7 @@ int poetry(){
 		state = 2;												// Change state to 2
 
 		// Serial Debug Lines
-		// char out_buffer[128];
-		// sprintf(out_buffer,"Poetry - State = %u Counter = %u TrackNumber = %u \n",state, counter, t_number );
-		// Serial.println(out_buffer);
-		// Serial.println("---- ---- ----");
-		// End of the Debug Lines
+		DebugOutput(state,counter,t_number);
 
 		return 0;
 	}
@@ -135,11 +127,8 @@ int poetry(){
 		state = 3;												// Change to state 3
 		
 		// Serial Debug Lines
-		// char out_buffer[128];
-		// sprintf(out_buffer,"Ask to stay - State = %u Counter = %u TrackNumber = %u \n",state, counter, a_number );
-		// Serial.println(out_buffer);
-		// Serial.println("---- ---- ----");
-		// End of the Debug Lines
+		DebugOutput(state,counter,a_number);
+		Serial.println(t_pos);
 
 		return 0; 
 	}
@@ -186,11 +175,7 @@ int poetry(){
 		state = 4;
 
 		// Serial Debug Lines
-		// char out_buffer[128];
-		// sprintf(out_buffer,"Complaints - State = %u Counter = %u TrackNumber = %u \n",state, counter, c_number );
-		// Serial.println(out_buffer);
-		// Serial.println("---- ---- ----");
-		// End of the Debug Lines
+		DebugOutput(state,counter,c_number);
 
 		return 0;
 	}
@@ -200,17 +185,13 @@ int poetry(){
 	if((state == 3) && (counter >= 1) && (change)){
 
 		change = false;
-		MP3player.stopTrack();
 		MP3player.playTrack(t_number);
 		MP3player.skipTo(t_pos);
 		state = 2;
 
 		// Serial Debug Lines
-		// char out_buffer[128];
-		// sprintf(out_buffer,"Return to Poetry - State = %u Counter = %u TrackNumber = %u \n",state, counter, t_number );
-		// Serial.println(out_buffer);
-		// Serial.println("---- ---- ----");
-		// End of the Debug Lines
+		DebugOutput(state,counter,t_number);
+		Serial.println(t_pos);
 
 		return 0;
 	}
@@ -260,4 +241,10 @@ void SerialDebug(){
 		}
 		counter = output.toInt();
 	}
+}
+
+void DebugOutput(int st, int cou, int trk){
+	char out[64];
+	sprintf(out,"State = %u Counter = %u TrackNumber = %u \n --- --- --- \n",st, cou, trk );
+	Serial.println(out);
 }
