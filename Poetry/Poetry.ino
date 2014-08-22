@@ -147,7 +147,7 @@ int poetry(){
 	// Timer Counter
 
 	if(state == 3){
-		if(change){	
+		if(change && !timer_activated){	
 			Serial.println("State = 3 - Complaints Timer Start");
 			change = false;
 			timer_activated = true;
@@ -216,7 +216,6 @@ int poetry(){
 
 	if(!MP3player.isPlaying())
 	{
-		Serial.println("Change!");
 		switch (state) {
 		    case 1:										// If the Gretings message is finished
 		    	change = true;							// If the Gretings message is finished and still people in the zone 
