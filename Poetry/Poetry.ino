@@ -54,7 +54,7 @@ void setup()
 	Serial.begin(115200);						// Serial port Using to debug
 	sd.begin(chipSelect,SPI_HALF_SPEED);		// Begin the SD card
 	MP3player.begin();							// Begin the MP3 circuit
-	Serial.println("--- Serial Debug ---");
+	// Serial.println("--- Serial Debug ---");
 }
 
 void loop()							// Main Loop	
@@ -82,10 +82,10 @@ int poetry(){
 		state = 1;												// Change the state to 1
 		
 		// Serial Debug Lines
-		char out_buffer[128];
-		sprintf(out_buffer,"Gretings Message - State = %u Counter = %u TrackNumber = %u \n",state, counter, g_number );
-		Serial.println(out_buffer);
-		Serial.println("---- ---- ----");
+		// char out_buffer[128];
+		// sprintf(out_buffer,"Gretings Message - State = %u Counter = %u TrackNumber = %u \n",state, counter, g_number );
+		// Serial.println(out_buffer);
+		// Serial.println("---- ---- ----");
 		// End of the Debug Lines
 
 
@@ -108,10 +108,10 @@ int poetry(){
 		state = 2;												// Change state to 2
 
 		// Serial Debug Lines
-		char out_buffer[128];
-		sprintf(out_buffer,"Poetry - State = %u Counter = %u TrackNumber = %u \n",state, counter, t_number );
-		Serial.println(out_buffer);
-		Serial.println("---- ---- ----");
+		// char out_buffer[128];
+		// sprintf(out_buffer,"Poetry - State = %u Counter = %u TrackNumber = %u \n",state, counter, t_number );
+		// Serial.println(out_buffer);
+		// Serial.println("---- ---- ----");
 		// End of the Debug Lines
 
 		return 0;
@@ -135,10 +135,10 @@ int poetry(){
 		state = 3;												// Change to state 3
 		
 		// Serial Debug Lines
-		char out_buffer[128];
-		sprintf(out_buffer,"Ask to stay - State = %u Counter = %u TrackNumber = %u \n",state, counter, a_number );
-		Serial.println(out_buffer);
-		Serial.println("---- ---- ----");
+		// char out_buffer[128];
+		// sprintf(out_buffer,"Ask to stay - State = %u Counter = %u TrackNumber = %u \n",state, counter, a_number );
+		// Serial.println(out_buffer);
+		// Serial.println("---- ---- ----");
 		// End of the Debug Lines
 
 		return 0; 
@@ -148,7 +148,7 @@ int poetry(){
 
 	if(state == 3){
 		if(change && !timer_activated){	
-			Serial.println("State = 3 - Complaints Timer Start");
+			// Serial.println("State = 3 - Complaints Timer Start");
 			change = false;
 			timer_activated = true;
 			retunr_timer = millis();			
@@ -157,11 +157,11 @@ int poetry(){
 			if(millis() - retunr_timer > time_to_retunr){
 				timer_activated = false;
 				timeout = true;
-				Serial.println("State = 3 - Complaints Timer Done!");	
+				// Serial.println("State = 3 - Complaints Timer Done!");	
 			}
 		}
 		if(counter >= 1){
-			Serial.println("State = 3 - The peole is back!");
+			// Serial.println("State = 3 - The peole is back!");
 			change = true;
 			timer_activated = false;
 			timeout = false;
@@ -186,10 +186,10 @@ int poetry(){
 		state = 4;
 
 		// Serial Debug Lines
-		char out_buffer[128];
-		sprintf(out_buffer,"Complaints - State = %u Counter = %u TrackNumber = %u \n",state, counter, c_number );
-		Serial.println(out_buffer);
-		Serial.println("---- ---- ----");
+		// char out_buffer[128];
+		// sprintf(out_buffer,"Complaints - State = %u Counter = %u TrackNumber = %u \n",state, counter, c_number );
+		// Serial.println(out_buffer);
+		// Serial.println("---- ---- ----");
 		// End of the Debug Lines
 
 		return 0;
@@ -200,15 +200,16 @@ int poetry(){
 	if((state == 3) && (counter >= 1) && (change)){
 
 		change = false;
+		MP3player.stopTrack();
 		MP3player.playTrack(t_number);
 		MP3player.skipTo(t_pos);
 		state = 2;
 
 		// Serial Debug Lines
-		char out_buffer[128];
-		sprintf(out_buffer,"Return to Poetry - State = %u Counter = %u TrackNumber = %u \n",state, counter, t_number );
-		Serial.println(out_buffer);
-		Serial.println("---- ---- ----");
+		// char out_buffer[128];
+		// sprintf(out_buffer,"Return to Poetry - State = %u Counter = %u TrackNumber = %u \n",state, counter, t_number );
+		// Serial.println(out_buffer);
+		// Serial.println("---- ---- ----");
 		// End of the Debug Lines
 
 		return 0;
