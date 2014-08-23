@@ -47,6 +47,8 @@ double retunr_timer = 0;			// Retunr timer variable
 
 int counter = 0;					// People Counter
 
+int l_counter = 0;					// Last counter
+
 void setup()
 {
 	Wire.begin(0x0A);							// Start of the I2C port
@@ -54,7 +56,7 @@ void setup()
 	Serial.begin(115200);						// Serial port Using to debug
 	sd.begin(chipSelect,SPI_HALF_SPEED);		// Begin the SD card
 	MP3player.begin();							// Begin the MP3 circuit
-	// Serial.println("--- Serial Debug ---");
+	Serial.println("--- Serial Debug ---");
 }
 
 void loop()							// Main Loop	
@@ -128,7 +130,6 @@ int poetry(){
 		
 		// Serial Debug Lines
 		DebugOutput(state,counter,a_number);
-		Serial.println(t_pos);
 
 		return 0; 
 	}
@@ -186,12 +187,12 @@ int poetry(){
 
 		change = false;
 		MP3player.playTrack(t_number);
+		delay(400);
 		MP3player.skipTo(t_pos);
 		state = 2;
 
 		// Serial Debug Lines
 		DebugOutput(state,counter,t_number);
-		Serial.println(t_pos);
 
 		return 0;
 	}
@@ -207,13 +208,10 @@ int poetry(){
 		    	}
 		      	break;
 		    
-		    case 2:										
+		    case 2:
+		    	l_counter = counter;						
 		    	change = false;							// If the poetry finish
-		    	state = 0;								
-		    	if(counter >= 1){						// If someone still in the zone the next poetry will be played
-		    		state = 1;							
-		    		change = true;
-		    	}
+		    	state = 5;
 		    	break;
 
 		    case 3:										// If the ask to stay message finish
@@ -224,6 +222,14 @@ int poetry(){
 		    	change = false;							// If the complain message finish
 		    	state = 0;
 		    	break;
+
+		    case 5:										// If someone still in the zone
+		    	if(l_counter < counter){				// If the number of persons is greater
+		    		state = 0;
+		    	}
+		    	if(counter == 0){
+		    		state = 0;
+		    	}
 		}
 	}
 }
@@ -245,6 +251,6 @@ void SerialDebug(){
 
 void DebugOutput(int st, int cou, int trk){
 	char out[64];
-	sprintf(out,"State = %u Counter = %u TrackNumber = %u \n --- --- --- \n",st, cou, trk );
+	sprintf(out,"State = %u Counter = %u TrackNumber = %u \n --- --- ---",st, cou, trk );
 	Serial.println(out);
 }
