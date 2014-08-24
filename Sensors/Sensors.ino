@@ -3,17 +3,17 @@
 
 #define w_distance 400				// Max distance to the wall in cm
 
-#define lsi_trig 2					// Left side internal Trigger pin
-#define lsi_echo 3					// Left side internal Echo pin
+#define lsi_trig 6					// Left side internal Trigger pin
+#define lsi_echo 7					// Left side internal Echo pin
 
-#define lse_trig 4 					// Left side external Trigger Pin
-#define lse_echo 5 					// Left side external Echo Pin
+#define lse_trig 8 					// Left side external Trigger Pin
+#define lse_echo 9 					// Left side external Echo Pin
 
-#define rsi_trig 6					// Right side internal Trigger pin
-#define rsi_echo 7 					// Right side internal Echo Pin
+#define rsi_trig 4					// Right side internal Trigger pin
+#define rsi_echo 5 					// Right side internal Echo Pin
 
-#define rse_trig 8					// Right side external Trigger pin
-#define rse_echo 9 					// Right side external Echo pin
+#define rse_trig 2					// Right side external Trigger pin
+#define rse_echo 3 					// Right side external Echo pin
 
 int counter = 0;
 int l_counter = 0;
