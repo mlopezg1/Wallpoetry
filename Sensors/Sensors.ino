@@ -41,7 +41,7 @@ int chkZone(){
 	if(ls_external.check()){
 		if(l_half){
 			l_half = false;
-			Serial.println("left Half 0");
+			Serial.println("lse:left Half 0");
 			counter--;
 			if(counter < 0){
 				counter = 0;
@@ -50,7 +50,7 @@ int chkZone(){
 		}
 		else{
 			l_half = true;
-			Serial.println("left Half 1");
+			Serial.println("lse:left Half 1");
 			return 0;
 		}
 	}
@@ -58,13 +58,13 @@ int chkZone(){
 	if(ls_internal.check()){
 		if(l_half){
 			l_half = false;
-			Serial.println("left Half 0");
+			Serial.println("lsi:left Half 0");
 			counter++;
 			return 0;
 		}
 		else{
 			l_half = true;
-			Serial.println("left Half 1");
+			Serial.println("lsi:left Half 1");
 			return 0;
 		}
 	}
@@ -72,7 +72,7 @@ int chkZone(){
 	if(rs_external.check()){
 		if(r_half){
 			r_half = false;
-			Serial.println("right Half 0");
+			Serial.println("rse:right Half 0");
 			counter--;
 			if(counter < 0){
 				counter = 0;
@@ -81,7 +81,7 @@ int chkZone(){
 		}
 		else{
 			r_half = true;
-			Serial.println("right Half 1");
+			Serial.println("rse:right Half 1");
 			return 0;
 		}
 	}
@@ -89,13 +89,13 @@ int chkZone(){
 	if(rs_internal.check()){
 		if(r_half){
 			r_half = false;
-			Serial.println("right Half 0");
+			Serial.println("rsi:right Half 0");
 			counter++;
 			return 0;
 		}
 		else{
 			r_half = true;
-			Serial.println("right Half 1");
+			Serial.println("rsi:right Half 1");
 			return 0;
 		}
 	}
